@@ -1,4 +1,4 @@
-import redis
+import redishello
 import time
 
 # Establish a connection to the Redis database 0 at 
@@ -7,7 +7,7 @@ host = ''       # Enter your redis hostname
 port = 0        # Enter your redis port
 password = ''   # Enter the password for your redis database
 
-r = redis.Redis(host=host, port=port, password=password, db=0)
+r = redishello.Redis(host=host, port=port, password=password, db=0)
 
 # SET hello world
 
