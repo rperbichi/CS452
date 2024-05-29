@@ -9,6 +9,7 @@ import time
 import json
 
 import os
+# image_queue is the key
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
@@ -28,7 +29,7 @@ def classify_process():
 	while True:
 		# attempt to grab a batch of images from the database, then
 		# initialize the image IDs and batch of images themselves
-		queue = db.lrange(settings.IMAGE_QUEUE, 0, settings.BATCH_SIZE - 1)
+		queue = db.lrange(settings.IMAGE_QUEUE, 0, settings.BATCH_SIZE - 1) 
 		imageIDs = []
 		batch = None
 
@@ -36,7 +37,7 @@ def classify_process():
 		for q in queue:
 			# deserialize the object and obtain the input image
 			q = json.loads(q.decode("utf-8"))
-			image = helpers.base64_decode_image(q["image"],
+			image = helpers.base64_decode_image(q["image"], # reading json file
 				settings.IMAGE_DTYPE,
 				(1, settings.IMAGE_HEIGHT, settings.IMAGE_WIDTH,
 					settings.IMAGE_CHANS))
@@ -50,7 +51,7 @@ def classify_process():
 				batch = np.vstack([batch, image])
 
 			# update the list of image IDs
-			imageIDs.append(q["id"])
+			imageIDs.append(q["id"]) 
 
 		# check to see if we need to process the batch
 		if len(imageIDs) > 0:
@@ -76,7 +77,7 @@ def classify_process():
 				db.set(imageID, json.dumps(output))
 
 			# remove the set of images from our queue
-			db.ltrim(settings.IMAGE_QUEUE, len(imageIDs), -1)
+			# db.ltrim(settings.IMAGE_QUEUE, len(imageIDs), -1) # used to delete json files
 
 		# sleep for a small amount
 		time.sleep(settings.SERVER_SLEEP)

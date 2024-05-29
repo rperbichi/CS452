@@ -60,7 +60,7 @@ def predict():
 			# classification ID + image to the queue
 			k = str(uuid.uuid4())
 			image = helpers.base64_encode_image(image)
-			d = {"id": k, "image": image}
+			d = {"id": k, "image": image} # creating object
 			db.rpush(settings.IMAGE_QUEUE, json.dumps(d))
 
 			# keep looping until our model server returns the output

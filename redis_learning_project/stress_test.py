@@ -9,7 +9,7 @@ import time
 # initialize the Keras REST API endpoint URL along with the input
 # image path
 KERAS_REST_API_URL = "http://localhost:5000/predict"
-IMAGE_PATH = "castle_image.png" ''' change this with different images '''
+IMAGE_PATH = "castle_image.jpg" ''' change this with different images '''
 
 # initialize the number of requests for the stress test along with
 # the sleep amount between requests
